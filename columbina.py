@@ -36,17 +36,11 @@ async def on_ready():
 @columbina.event
 async def on_voice_state_update(member, before, after):
     voice_client = member.guild.voice_client
-
-    # 1. Exit immediately if the bot isn't connected to a voice channel
     if not voice_client or not voice_client.channel:
         return
-
-    # 2. Count real users in the bot's channel
+    
     users_in_vc = [m for m in voice_client.channel.members if not m.bot]
-
-    # 3. Disconnect if empty
     if len(users_in_vc) == 0:
         await voice_client.disconnect()
-
 
 columbina.run(bot_token)
